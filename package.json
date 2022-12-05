@@ -1,27 +1,6 @@
 {
-  "name": "react-webpack-typescript-starter",
+  "name": "mord-os-v3",
   "version": "0.1.0",
-  "description": "Starter kit for React, Webpack (with Hot Module Replacement), Typescript and Babel.",
-  "keywords": [
-    "react",
-    "webpack",
-    "typescript",
-    "babel",
-    "sass",
-    "hmr",
-    "starter",
-    "boilerplate"
-  ],
-  "author": "Viktor Persson",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vikpe/react-webpack-typescript-starter.git"
-  },
-  "bugs": {
-    "url": "https://github.com/vikpe/react-webpack-typescript-starter/issues"
-  },
-  "homepage": "https://github.com/vikpe/react-webpack-typescript-starter",
   "scripts": {
     "build": "yarn run clean-dist && webpack --config=configs/webpack/prod.js",
     "clean-dist": "rimraf dist/*",
@@ -71,5 +50,7 @@
     "webpack-dev-server": "^4.11.1",
     "webpack-merge": "^5.8.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "react-router-dom": "^6.4.4"
+  }
 }

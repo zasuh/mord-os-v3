@@ -1,14 +1,35 @@
 import * as React from "react";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import "./../assets/scss/App.scss";
+import Login from "./pages/login";
+import Home from "./pages/home";
 
-const reactLogo = require("./../assets/img/react_logo.svg");
+function App() {
+  const navigate = useNavigate();
 
-const App = () => (
-  <div className="app">
-    <h1>Hello World!</h1>
-    <p>Foo to the barz</p>
-    <img src={reactLogo.default} height="480" />
-  </div>
-);
+  React.useEffect(() => {
+    const authToken = localStorage.getItem("Email");
+    if (authToken) navigate("/");
+    else navigate("/login");
+  }, [navigate]);
+
+  const login = (email, password) => {
+    if (email === "borgoth@mordos.com" && password === "12bindthem") {
+      localStorage.setItem("Email", email);
+      navigate("/");
+    } else {
+      alert("Please enter valid email/password");
+    }
+  };
+  return (
+    <>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </>
+  );
+}
 
 export default App;
