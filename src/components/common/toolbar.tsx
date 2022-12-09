@@ -1,16 +1,18 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 
-import iconAperture from '../../assets/icons/aperture.svg';
-import iconFolder from '../../assets/icons/folder.svg';
-import iconChrome from '../../assets/icons/chrome.svg';
-import iconRss from '../../assets/icons/rss.svg';
-import iconCamera from '../../assets/icons/camera.svg';
-import iconImage from '../../assets/icons/image.svg';
-import iconSearch from '../../assets/icons/search.svg';
-import iconWifi from '../../assets/icons/wifi.svg';
-import iconBattery from '../../assets/icons/battery.svg';
-import iconBell from '../../assets/icons/bell.svg';
+import {
+	iconFolder,
+	iconChrome,
+	iconRss,
+	iconCamera,
+	iconImage,
+	iconAperture,
+	iconSearch,
+	iconBell,
+	iconWifi,
+	iconBattery,
+} from '../../assets/icons';
 
 interface ToolbarProps {
 	modals: any;

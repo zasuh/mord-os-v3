@@ -1,13 +1,16 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-
-import background from '../../assets/img/background.jpeg';
-import iconFolder from '../../assets/icons/folder.svg';
-import iconChrome from '../../assets/icons/chrome.svg';
-import iconRss from '../../assets/icons/rss.svg';
-import iconCamera from '../../assets/icons/camera.svg';
-import iconImage from '../../assets/icons/image.svg';
+import Toolbar from '../common/toolbar';
+import FileDirectory from '../applications/file-directory';
+import {
+	background,
+	iconFolder,
+	iconChrome,
+	iconRss,
+	iconCamera,
+	iconImage,
+} from '../../assets/icons';
 
 function Home() {
 	const [fileDirectoryModal, setFileDirectoryModal] = React.useState(false);
@@ -49,20 +52,9 @@ function Home() {
 					</Icon>
 				</IconsWrapper>
 			</Desktop>
-			{/*<Toolbar
-				modals={{
-					fileDirectoryModal,
-					rssReaderModal,
-					cameraModal,
-					galleryModal,
-					browserModal,
-				}}
-			/>*/}
-			{/*<FileDirectoryModal
-      isOpen={fileDirectoryModal}
-      onClose={() => setFileDirectoryModal(false)}
-    />
-    <RssReaderModal
+			<Toolbar modals={{}} />
+			{fileDirectoryModal && <FileDirectory open={fileDirectoryModal} />}
+			{/*<RssReaderModal
       isOpen={rssReaderModal}
       onClose={() => setRssReaderModal(false)}
     />
