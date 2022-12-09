@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import Button from '../Common/Button';
+import Button from '../common/Button';
 
 interface LoginProps {
 	login: (email: string, password: string) => void;

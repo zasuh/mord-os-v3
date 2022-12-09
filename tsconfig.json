@@ -9,7 +9,11 @@
     "target": "ESNext",
     "sourceMap": true,
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@icons": ["src/assets/icons"]
+    }
   },
   "include": ["src",
     "index.d.ts"

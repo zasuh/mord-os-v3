@@ -6,6 +6,9 @@ module.exports = {
 	entry: './index.tsx',
 	resolve: {
 		extensions: ['.js', '.jsx', '.ts', '.tsx'],
+		alias: {
+			'@icons': 'src/assets/icons',
+		},
 	},
 	context: resolve(__dirname, '../../src'),
 	module: {

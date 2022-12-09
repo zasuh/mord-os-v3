@@ -6,7 +6,7 @@ interface ButtonProps {
 	backgroundColor?: string;
 	width?: number;
 	children?: any;
-	onClick?: () => void;
+	onClick?: (e: any) => void;
 	disabled?: boolean;
 	type?: 'button' | 'submit' | 'reset';
 }

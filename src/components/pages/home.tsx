@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-import Toolbar from '../common/toolbar';
-import FileDirectory from '../applications/file-directory';
+import Toolbar from '../common/Toolbar';
+import FileDirectory from '../applications/FileDirectory';
 import {
 	background,
 	iconFolder,

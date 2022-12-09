@@ -9,6 +9,8 @@ import iconSearch from '../../assets/icons/search.svg';
 import iconWifi from '../../assets/icons/wifi.svg';
 import iconBattery from '../../assets/icons/battery.svg';
 import iconBell from '../../assets/icons/bell.svg';
+import iconClose from '../../assets/icons/x-circle.svg';
+import iconPlus from '../../assets/icons/plus.svg';
 
 export {
 	background,
@@ -22,4 +24,6 @@ export {
 	iconRss,
 	iconCamera,
 	iconImage,
+	iconClose,
+	iconPlus,
 };
