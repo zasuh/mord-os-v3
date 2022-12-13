@@ -75,16 +75,16 @@ function Toolbar({ modals, switchTheme }: ToolbarProps) {
 			</div>
 			<RightSideWrapper>
 				<div onClick={switchTheme}>
-					<Moon color={theme.color} />
+					<Moon color={theme.color} style={{ cursor: 'pointer' }} />
 				</div>
 				<div>
-					<Bell color={theme.color} />
+					<Bell color={theme.color} style={{ cursor: 'pointer' }} />
 				</div>
 				<div>
-					<Wifi color={theme.color} />
+					<Wifi color={theme.color} style={{ cursor: 'pointer' }} />
 				</div>
 				<div>
-					<Battery color={theme.color} />
+					<Battery color={theme.color} style={{ cursor: 'pointer' }} />
 				</div>
 				<p style={{ fontFamily: 'Roboto, sans-serif' }}>
 					{date.toLocaleTimeString()}

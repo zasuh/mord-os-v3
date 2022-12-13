@@ -68,9 +68,15 @@ function Home({ switchTheme }: HomeProps) {
 					onClose={() => setRssReaderModal(false)}
 				/>
 			)}
-			{cameraModal && <CameraApp open={cameraModal} />}
-			{galleryModal && <Gallery open={galleryModal} />}
-			{browserModal && <Browser open={browserModal} />}
+			{cameraModal && (
+				<CameraApp open={cameraModal} onClose={() => setCameraModal(false)} />
+			)}
+			{galleryModal && (
+				<Gallery open={galleryModal} onClose={() => setGalleryModal(false)} />
+			)}
+			{browserModal && (
+				<Browser open={browserModal} onClose={() => setBrowserModal(false)} />
+			)}
 		</>
 	);
 }
@@ -102,11 +108,6 @@ const Icon = styled.div({
 	alignItems: 'center',
 	cursor: 'pointer',
 });
-
-const IconImg = styled.img(({ theme }) => ({
-	color: theme.color,
-	width: 50,
-}));
 
 const IconTitle = styled.div(({ theme }) => ({
 	color: theme.color,
