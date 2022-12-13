@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import Toolbar from '../common/Toolbar';
 import FileDirectory from '../applications/FileDirectory';
 import {
-	background,
 	iconFolder,
 	iconChrome,
 	iconRss,
@@ -12,7 +11,11 @@ import {
 	iconImage,
 } from '../../assets/icons';
 
-function Home() {
+interface HomeProps {
+	switchTheme: () => void;
+}
+
+function Home({ switchTheme }: HomeProps) {
 	const [fileDirectoryModal, setFileDirectoryModal] = React.useState(false);
 	const [rssReaderModal, setRssReaderModal] = React.useState(false);
 	const [cameraModal, setCameraModal] = React.useState(false);
@@ -31,28 +34,28 @@ function Home() {
 			<Desktop>
 				<IconsWrapper>
 					<Icon onClick={() => setFileDirectoryModal(true)}>
-						<img src={iconFolder} width={'50'} />
+						<IconImg src={iconFolder} />
 						<IconTitle>File Directory</IconTitle>
 					</Icon>
 					<Icon onClick={() => setRssReaderModal(true)}>
-						<img src={iconRss} width={'50'} />
+						<IconImg src={iconRss} />
 						<IconTitle>RSS Reader</IconTitle>
 					</Icon>
 					<Icon onClick={() => setCameraModal(true)}>
-						<img src={iconCamera} width={'50'} />
+						<IconImg src={iconCamera} />
 						<IconTitle>Camera</IconTitle>
 					</Icon>
 					<Icon onClick={() => setGalleryModal(true)}>
-						<img src={iconImage} width={'50'} />
+						<IconImg src={iconImage} />
 						<IconTitle>Gallery</IconTitle>
 					</Icon>
 					<Icon onClick={() => setBrowserModal(true)}>
-						<img src={iconChrome} width={'50'} />
+						<IconImg src={iconChrome} />
 						<IconTitle>Chrome</IconTitle>
 					</Icon>
 				</IconsWrapper>
 			</Desktop>
-			<Toolbar modals={{}} />
+			<Toolbar modals={{}} switchTheme={switchTheme} />
 			{fileDirectoryModal && <FileDirectory open={fileDirectoryModal} />}
 			{/*<RssReaderModal
       isOpen={rssReaderModal}
@@ -71,9 +74,8 @@ function Home() {
 	);
 }
 
-const Desktop = styled.div({
-	fontFamily: 'Roboto, sans-serif',
-	backgroundImage: `url(${background})`,
+const Desktop = styled.div(({ theme }) => ({
+	backgroundImage: theme.backgroundImage,
 	backgroundRepeat: 'no-repeat',
 	maxWidth: '100%',
 	height: '95vh',
@@ -81,10 +83,9 @@ const Desktop = styled.div({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'flex-start',
-});
+}));
 
 const IconsWrapper = styled.div({
-	color: 'white',
 	height: '60%',
 	display: 'flex',
 	flexDirection: 'column',
@@ -101,9 +102,14 @@ const Icon = styled.div({
 	cursor: 'pointer',
 });
 
-const IconTitle = styled.div({
+const IconImg = styled.img(({ theme }) => ({
+	color: theme.color,
+	width: 50,
+}));
+
+const IconTitle = styled.div(({ theme }) => ({
+	color: theme.color,
 	marginTop: 5,
-	textShadow: 'black 1px 0 10px',
-});
+}));
 
 export default Home;

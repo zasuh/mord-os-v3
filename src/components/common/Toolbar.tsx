@@ -12,10 +12,12 @@ import {
 	iconBell,
 	iconWifi,
 	iconBattery,
+	iconMoon,
 } from '../../assets/icons';
 
 interface ToolbarProps {
 	modals: any;
+	switchTheme: () => void;
 }
 
 const MODAL_NAMES_MAP = {
@@ -25,7 +27,7 @@ const MODAL_NAMES_MAP = {
 	galleryModal: 'Gallery',
 	browserModal: 'Browser',
 };
-function Toolbar({ modals }: ToolbarProps) {
+function Toolbar({ modals, switchTheme }: ToolbarProps) {
 	const [date, setDate] = React.useState(new Date());
 	const [openedModal, setOpenedModal] = React.useState(null);
 
@@ -71,6 +73,9 @@ function Toolbar({ modals }: ToolbarProps) {
 				)}
 			</div>
 			<RightSideWrapper>
+				<div onClick={switchTheme}>
+					<img src={iconMoon} />
+				</div>
 				<div>
 					<img src={iconBell} />
 				</div>

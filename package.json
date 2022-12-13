@@ -57,6 +57,8 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "feather-icons": "^4.29.0",
-    "react-router-dom": "^6.4.4"
+    "react-router-dom": "^6.4.4",
+    "typeface-roboto": "^1.1.13",
+    "use-local-storage": "^2.3.6"
   }
 }

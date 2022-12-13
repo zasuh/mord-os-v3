@@ -134,136 +134,140 @@ function FileDirectory({ open }: FileDirectoryProps) {
 
 	return (
 		<Modal open={open}>
-			<Header>
-				<Title>
-					<img src={iconFolder} width={'50%'} />
-					<h1>File Directory</h1>
-				</Title>
-				<div>
-					<img
-						src={iconClose}
-						onClick={() => {
-							setEditor(false);
-							onClose();
-						}}
-						style={{ cursor: 'pointer' }}
-					/>
-				</div>
-			</Header>
-			{editor && (
-				<Sidebar>
-					<CloseButton>
+			<div>
+				<Header>
+					<Title>
+						<img src={iconFolder} width={30} />
+						<h1 style={{ width: 200 }}>File Directory</h1>
+					</Title>
+					<div>
 						<img
 							src={iconClose}
-							onClick={() => setEditor(false)}
+							onClick={() => {
+								setEditor(false);
+								onClose();
+							}}
 							style={{ cursor: 'pointer' }}
 						/>
-					</CloseButton>
-					<form autoComplete="off">
-						<div
-							style={{
-								display: 'flex',
-								flexDirection: 'column',
-								alignItems: 'flex-start',
-							}}
-						>
-							<p style={{ marginBottom: 5 }}>Title</p>
-							<Input
-								value={title}
-								type="text"
-								placeholder="Enter title"
-								onChange={(e) => setTitle(e.target.value)}
-							/>
-						</div>
-						<div
-							style={{
-								display: 'flex',
-								flexDirection: 'column',
-								alignItems: 'flex-start',
-							}}
-						>
-							<p style={{ marginBottom: 5 }}>Content</p>
-							<Textarea
-								value={body}
-								onChange={(e) => setBody(e.target.value)}
-								placeholder="Enter content"
-								rows={10}
-							/>
-						</div>
-						<div
-							style={{
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'flex-end',
-								width: 'calc(100% - 15px)',
-								gap: 10,
-							}}
-						>
-							{rowId && (
-								<Button
-									text="Delete"
-									onClick={remove}
-									disabled={!title || !body}
-									backgroundColor="#754043"
+					</div>
+				</Header>
+				<Content>
+					{editor && (
+						<Sidebar>
+							<CloseButton>
+								<img
+									src={iconClose}
+									onClick={() => setEditor(false)}
+									style={{ cursor: 'pointer' }}
 								/>
-							)}
+							</CloseButton>
+							<form autoComplete="off">
+								<div
+									style={{
+										display: 'flex',
+										flexDirection: 'column',
+										alignItems: 'flex-start',
+									}}
+								>
+									<p style={{ marginBottom: 5 }}>Title</p>
+									<Input
+										value={title}
+										type="text"
+										placeholder="Enter title"
+										onChange={(e) => setTitle(e.target.value)}
+									/>
+								</div>
+								<div
+									style={{
+										display: 'flex',
+										flexDirection: 'column',
+										alignItems: 'flex-start',
+									}}
+								>
+									<p style={{ marginBottom: 5 }}>Content</p>
+									<Textarea
+										value={body}
+										onChange={(e) => setBody(e.target.value)}
+										placeholder="Enter content"
+										rows={10}
+									/>
+								</div>
+								<div
+									style={{
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'flex-end',
+										width: 'calc(100% - 15px)',
+										gap: 10,
+									}}
+								>
+									{rowId && (
+										<Button
+											text="Delete"
+											onClick={remove}
+											disabled={!title || !body}
+											backgroundColor="#754043"
+										/>
+									)}
+									<Button
+										text="Save"
+										type="submit"
+										onClick={(e) => save(e)}
+										disabled={!title || !body}
+									/>
+								</div>
+							</form>
+						</Sidebar>
+					)}
+					<Files editor={editor} hasFiles={files.length > 0}>
+						<AddFileWrapper>
 							<Button
-								text="Save"
-								type="submit"
-								onClick={(e) => save(e)}
-								disabled={!title || !body}
+								width={50}
+								text=""
+								onClick={() => {
+									setRowId(null);
+									setEditor(true);
+									setTitle('');
+									setBody('');
+								}}
+							>
+								<img src={iconPlus} width={20} />
+							</Button>
+						</AddFileWrapper>
+						{files.length > 0 ? (
+							<Table
+								startingData={files}
+								onRowClick={(row) => {
+									setRowId(row.id);
+									setEditor(true);
+									setTitle(row.title);
+									setBody(row.body);
+								}}
+								onSort={(id) => sortData(id)}
 							/>
-						</div>
-					</form>
-				</Sidebar>
-			)}
-			<Files editor={editor} hasFiles={files.length > 0}>
-				<AddFileWrapper>
-					<Button
-						width={60}
-						text="Add"
-						onClick={() => {
-							setRowId(null);
-							setEditor(true);
-							setTitle('');
-							setBody('');
-						}}
-					>
-						<img src={iconPlus} />
-					</Button>
-				</AddFileWrapper>
-				{files.length > 0 ? (
-					<Table
-						startingData={files}
-						onRowClick={(row) => {
-							setRowId(row.id);
-							setEditor(true);
-							setTitle(row.title);
-							setBody(row.body);
-						}}
-						onSort={(id) => sortData(id)}
-					/>
-				) : (
-					<EmptyState>
-						<p>Nothing to show</p>
-					</EmptyState>
-				)}
-			</Files>
+						) : (
+							<EmptyState>
+								<p>Nothing to show</p>
+							</EmptyState>
+						)}
+					</Files>
+				</Content>
+			</div>
 		</Modal>
 	);
 }
 
-const Header = styled.div({
+const Header = styled.div(({ theme }) => ({
+	color: theme.color,
 	width: '100%',
 	fontSize: 24,
-	fontWeight: 'bold',
 	marginBottom: 20,
 
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'space-between',
 	gap: 10,
-});
+}));
 
 const Title = styled.div({
 	display: 'flex',

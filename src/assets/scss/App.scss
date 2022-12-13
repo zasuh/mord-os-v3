@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -65,4 +67,8 @@ table {
   background-color: #9A8873;
   border-radius: 10px;
   border: 3px solid #ffffff;
+}
+
+html, body {
+  font-family: 'Roboto', serif;
 }

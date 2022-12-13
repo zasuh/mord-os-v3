@@ -13,7 +13,9 @@ function Modal({ open, children }: ModalProps) {
 }
 
 const Overlay = styled.div<ModalProps>(({ open }) => ({
-	display: open ? 'block' : 'none',
+	display: open ? 'flex' : 'none',
+	justifyContent: 'center',
+	alignItems: 'center',
 	position: 'fixed',
 	zIndex: 1,
 	bottom: 0,
@@ -25,12 +27,12 @@ const Overlay = styled.div<ModalProps>(({ open }) => ({
 	backgroundColor: 'rgba(0,0,0,0.4)',
 }));
 
-const Wrapper = styled.div({
-	backgroundColor: 'white',
-	margin: '15% auto',
+const Wrapper = styled.div(({ theme }) => ({
+	backgroundColor: theme.backgroundColor,
 	padding: 20,
 	border: '1px solid black',
+	borderRadius: 8,
 	width: '80%',
-});
+}));
 
 export default Modal;
