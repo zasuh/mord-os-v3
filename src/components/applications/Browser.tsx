@@ -16,7 +16,7 @@ function Browser({ open, onClose }: BrowserProps) {
 	const search = (e) => {
 		if (!searchQuery) return;
 		e.preventDefault();
-		window.open(`http://google.com/search?q=${searchQuery}`);
+		window.open(`https://google.com/search?q=${searchQuery}`);
 	};
 	return (
 		<Modal open={open}>
