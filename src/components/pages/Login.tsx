@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import Button from '../common/Button';
+import { useTheme } from '@emotion/react';
 
 interface LoginProps {
 	login: (email: string, password: string) => void;
@@ -8,6 +9,7 @@ interface LoginProps {
 const Login = ({ login }: LoginProps) => {
 	const [email, setEmail] = React.useState('');
 	const [password, setPassword] = React.useState('');
+	const theme = useTheme();
 
 	return (
 		<Wrapper>
@@ -62,6 +64,7 @@ const Login = ({ login }: LoginProps) => {
 							type="submit"
 							onClick={() => login(email, password)}
 							disabled={!email || !password}
+							backgroundColor={theme.primary}
 						/>
 					</LoginCard>
 				</form>
@@ -70,15 +73,16 @@ const Login = ({ login }: LoginProps) => {
 	);
 };
 
-const Wrapper = styled.div({
-	fontFamily: 'Roboto, sans-serif',
+const Wrapper = styled.div(({ theme }) => ({
 	display: 'flex',
 	flexDirection: 'column',
 	alignItems: 'center',
 	justifyContent: 'center',
 	maxWidth: '100%',
 	height: '100vh',
-});
+	backgroundImage: theme.backgroundImage,
+	backgroundRepeat: 'no-repeat',
+}));
 
 const InnerWrapper = styled.div({
 	display: 'flex',
@@ -88,10 +92,10 @@ const InnerWrapper = styled.div({
 	padding: 20,
 	boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
 	borderRadius: 8,
+	background: 'white',
 });
 
 const Title = styled.h1({
-	fontFamily: 'Roboto, sans-serif',
 	fontWeight: 'bold',
 	fontSize: 24,
 	marginBottom: 10,
