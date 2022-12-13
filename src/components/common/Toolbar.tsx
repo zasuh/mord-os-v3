@@ -1,19 +1,19 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-
 import {
-	iconFolder,
-	iconChrome,
-	iconRss,
-	iconCamera,
-	iconImage,
-	iconAperture,
-	iconSearch,
-	iconBell,
-	iconWifi,
-	iconBattery,
-	iconMoon,
-} from '../../assets/icons';
+	Folder,
+	Chrome,
+	Rss,
+	Camera,
+	Image,
+	Aperture,
+	Search,
+	Bell,
+	Wifi,
+	Battery,
+	Moon,
+} from 'react-feather';
+import { useTheme } from '@emotion/react';
 
 interface ToolbarProps {
 	modals: any;
@@ -30,6 +30,7 @@ const MODAL_NAMES_MAP = {
 function Toolbar({ modals, switchTheme }: ToolbarProps) {
 	const [date, setDate] = React.useState(new Date());
 	const [openedModal, setOpenedModal] = React.useState(null);
+	const theme = useTheme();
 
 	React.useEffect(() => {
 		const timerId = setInterval(refreshClock, 1000);
@@ -50,22 +51,22 @@ function Toolbar({ modals, switchTheme }: ToolbarProps) {
 	return (
 		<Wrapper>
 			<div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-				<img src={iconAperture} />
-				<img src={iconSearch} />
+				<Aperture color={theme.color} />
+				<Search color={theme.color} />
 				{openedModal && (
 					<Opened>
 						{(() => {
 							switch (openedModal) {
 								case 'File Directory':
-									return <img src={iconFolder} />;
+									return <Folder color={theme.color} />;
 								case 'RSS Reader':
-									return <img src={iconRss} />;
+									return <Rss color={theme.color} />;
 								case 'Camera':
-									return <img src={iconCamera} />;
+									return <Camera color={theme.color} />;
 								case 'Gallery':
-									return <img src={iconImage} />;
+									return <Image color={theme.color} />;
 								case 'Browser':
-									return <img src={iconChrome} />;
+									return <Chrome color={theme.color} />;
 							}
 						})()}
 						{openedModal}
@@ -74,16 +75,16 @@ function Toolbar({ modals, switchTheme }: ToolbarProps) {
 			</div>
 			<RightSideWrapper>
 				<div onClick={switchTheme}>
-					<img src={iconMoon} />
+					<Moon color={theme.color} />
 				</div>
 				<div>
-					<img src={iconBell} />
+					<Bell color={theme.color} />
 				</div>
 				<div>
-					<img src={iconWifi} />
+					<Wifi color={theme.color} />
 				</div>
 				<div>
-					<img src={iconBattery} />
+					<Battery color={theme.color} />
 				</div>
 				<p style={{ fontFamily: 'Roboto, sans-serif' }}>
 					{date.toLocaleTimeString()}
@@ -93,10 +94,9 @@ function Toolbar({ modals, switchTheme }: ToolbarProps) {
 	);
 }
 
-const Wrapper = styled.div({
-	fontFamily: 'Roboto, sans-serif',
-	backgroundColor: '#171614',
-	color: 'white',
+const Wrapper = styled.div(({ theme }) => ({
+	backgroundColor: theme.backgroundColor,
+	color: theme.color,
 	maxWidth: '100%',
 	height: '5vh',
 
@@ -104,7 +104,7 @@ const Wrapper = styled.div({
 	alignItems: 'center',
 	justifyContent: 'space-between',
 	padding: '0 20px',
-});
+}));
 
 const Opened = styled.div({
 	width: 150,

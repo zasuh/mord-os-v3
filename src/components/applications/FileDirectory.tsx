@@ -1,12 +1,14 @@
 import * as React from 'react';
-import Modal from '../common/Modal';
 import styled from '@emotion/styled';
-import { iconFolder, iconClose, iconPlus } from '../../assets/icons';
+import { Folder, XCircle, Plus } from 'react-feather';
+import Modal from '../common/Modal';
 import Button from '../common/Button';
 import Table from '../common/Table';
+import { useTheme } from '@emotion/react';
 
 interface FileDirectoryProps {
 	open: boolean;
+	onClose: () => void;
 }
 
 const STARTING_DATA = [
@@ -42,13 +44,14 @@ const STARTING_DATA = [
 	},
 ];
 
-function FileDirectory({ open }: FileDirectoryProps) {
+function FileDirectory({ open, onClose }: FileDirectoryProps) {
 	const [files, setFiles] = React.useState(STARTING_DATA);
 	const [title, setTitle] = React.useState('');
 	const [body, setBody] = React.useState('');
 	const [editor, setEditor] = React.useState(false);
 	const [rowId, setRowId] = React.useState(null);
 	const [sortingColumn, setSortingColumn] = React.useState(null);
+	const theme = useTheme();
 
 	const save = (e) => {
 		e.preventDefault();
@@ -77,9 +80,6 @@ function FileDirectory({ open }: FileDirectoryProps) {
 		setRowId(null);
 		setTitle('');
 		setBody('');
-	};
-	const onClose = () => {
-		console.log('yo');
 	};
 
 	const sortData = (column) => {
@@ -137,12 +137,12 @@ function FileDirectory({ open }: FileDirectoryProps) {
 			<div>
 				<Header>
 					<Title>
-						<img src={iconFolder} width={30} />
+						<Folder color={theme.color} />
 						<h1 style={{ width: 200 }}>File Directory</h1>
 					</Title>
 					<div>
-						<img
-							src={iconClose}
+						<XCircle
+							color={theme.color}
 							onClick={() => {
 								setEditor(false);
 								onClose();
@@ -155,8 +155,8 @@ function FileDirectory({ open }: FileDirectoryProps) {
 					{editor && (
 						<Sidebar>
 							<CloseButton>
-								<img
-									src={iconClose}
+								<XCircle
+									color={theme.color}
 									onClick={() => setEditor(false)}
 									style={{ cursor: 'pointer' }}
 								/>
@@ -206,7 +206,7 @@ function FileDirectory({ open }: FileDirectoryProps) {
 											text="Delete"
 											onClick={remove}
 											disabled={!title || !body}
-											backgroundColor="#754043"
+											backgroundColor={theme.secondary}
 										/>
 									)}
 									<Button
@@ -214,6 +214,7 @@ function FileDirectory({ open }: FileDirectoryProps) {
 										type="submit"
 										onClick={(e) => save(e)}
 										disabled={!title || !body}
+										backgroundColor={theme.primary}
 									/>
 								</div>
 							</form>
@@ -230,8 +231,9 @@ function FileDirectory({ open }: FileDirectoryProps) {
 									setTitle('');
 									setBody('');
 								}}
+								backgroundColor={theme.primary}
 							>
-								<img src={iconPlus} width={20} />
+								<Plus color={theme.color} />
 							</Button>
 						</AddFileWrapper>
 						{files.length > 0 ? (
@@ -276,11 +278,12 @@ const Title = styled.div({
 	gap: 10,
 });
 
-const Content = styled.div({
+const Content = styled.div(({ theme }) => ({
+	color: theme.color,
 	display: 'flex',
 	alignItems: 'flex-start',
 	height: 'calc(100% - 64px)',
-});
+}));
 
 const Sidebar = styled.div({
 	position: 'sticky',

@@ -9,13 +9,21 @@ import Home from './pages/Home';
 const lightTheme = {
 	backgroundImage: 'linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)',
 	backgroundColor: 'white',
+	backgroundColorSecondary: 'white',
 	color: 'black',
+	primary: '#757ce8',
+	secondary: '#ff7961',
+	accent: '#757ce8',
 };
 
 const darkTheme = {
 	backgroundImage: 'linear-gradient(to right, #434343 0%, black 100%)',
 	backgroundColor: '#424345',
+	backgroundColorSecondary: '#757575',
 	color: 'white',
+	primary: '#002884',
+	secondary: '#ba000d',
+	accent: '#a1bff0',
 };
 
 function App() {

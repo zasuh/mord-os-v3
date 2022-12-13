@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as React from 'react';
 import styled from '@emotion/styled';
 
@@ -86,7 +87,8 @@ const Wrapper = styled.div({
 	margin: '0 15px',
 });
 
-const Row = styled.div(({ tableHeader, tableRow }: RowStyleProps) => ({
+// @ts-ignore
+const Row = styled.div(({ tableHeader, tableRow, theme }: RowStyleProps) => ({
 	borderRadius: 8,
 	padding: '25px 30px',
 	display: 'flex',
@@ -102,7 +104,7 @@ const Row = styled.div(({ tableHeader, tableRow }: RowStyleProps) => ({
 	}),
 
 	...(tableRow && {
-		backgroundColor: 'white',
+		backgroundColor: theme.backgroundColorSecondary,
 		boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
 	}),
 }));

@@ -56,7 +56,9 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "axios": "^1.2.1",
     "feather-icons": "^4.29.0",
+    "react-feather": "^2.0.10",
     "react-router-dom": "^6.4.4",
     "typeface-roboto": "^1.1.13",
     "use-local-storage": "^2.3.6"

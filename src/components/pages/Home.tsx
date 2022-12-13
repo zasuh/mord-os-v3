@@ -1,15 +1,14 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { useTheme } from '@emotion/react';
+import { Folder, Rss, Camera, Image, Chrome } from 'react-feather';
 import Toolbar from '../common/Toolbar';
 import FileDirectory from '../applications/FileDirectory';
-import {
-	iconFolder,
-	iconChrome,
-	iconRss,
-	iconCamera,
-	iconImage,
-} from '../../assets/icons';
+import RssReader from '../applications/RssReader';
+import CameraApp from '../applications/CameraApp';
+import Gallery from '../applications/Gallery';
+import Browser from '../applications/Browser';
 
 interface HomeProps {
 	switchTheme: () => void;
@@ -22,6 +21,7 @@ function Home({ switchTheme }: HomeProps) {
 	const [galleryModal, setGalleryModal] = React.useState(false);
 	const [browserModal, setBrowserModal] = React.useState(false);
 	const navigate = useNavigate();
+	const theme = useTheme();
 
 	React.useEffect(() => {
 		const authToken = localStorage.getItem('Email');
@@ -34,42 +34,43 @@ function Home({ switchTheme }: HomeProps) {
 			<Desktop>
 				<IconsWrapper>
 					<Icon onClick={() => setFileDirectoryModal(true)}>
-						<IconImg src={iconFolder} />
+						<Folder size={40} color={theme.color} />
 						<IconTitle>File Directory</IconTitle>
 					</Icon>
 					<Icon onClick={() => setRssReaderModal(true)}>
-						<IconImg src={iconRss} />
+						<Rss size={40} color={theme.color} />
 						<IconTitle>RSS Reader</IconTitle>
 					</Icon>
 					<Icon onClick={() => setCameraModal(true)}>
-						<IconImg src={iconCamera} />
+						<Camera size={40} color={theme.color} />
 						<IconTitle>Camera</IconTitle>
 					</Icon>
 					<Icon onClick={() => setGalleryModal(true)}>
-						<IconImg src={iconImage} />
+						<Image size={40} color={theme.color} />
 						<IconTitle>Gallery</IconTitle>
 					</Icon>
 					<Icon onClick={() => setBrowserModal(true)}>
-						<IconImg src={iconChrome} />
+						<Chrome size={40} color={theme.color} />
 						<IconTitle>Chrome</IconTitle>
 					</Icon>
 				</IconsWrapper>
 			</Desktop>
 			<Toolbar modals={{}} switchTheme={switchTheme} />
-			{fileDirectoryModal && <FileDirectory open={fileDirectoryModal} />}
-			{/*<RssReaderModal
-      isOpen={rssReaderModal}
-      onClose={() => setRssReaderModal(false)}
-    />
-    <CameraModal isOpen={cameraModal} onClose={() => setCameraModal(false)} />
-    <GalleryModal
-      isOpen={galleryModal}
-      onClose={() => setGalleryModal(false)}
-    />
-    <BrowserModal
-      isOpen={browserModal}
-      onClose={() => setBrowserModal(false)}
-    />*/}
+			{fileDirectoryModal && (
+				<FileDirectory
+					open={fileDirectoryModal}
+					onClose={() => setFileDirectoryModal(false)}
+				/>
+			)}
+			{rssReaderModal && (
+				<RssReader
+					open={rssReaderModal}
+					onClose={() => setRssReaderModal(false)}
+				/>
+			)}
+			{cameraModal && <CameraApp open={cameraModal} />}
+			{galleryModal && <Gallery open={galleryModal} />}
+			{browserModal && <Browser open={browserModal} />}
 		</>
 	);
 }
