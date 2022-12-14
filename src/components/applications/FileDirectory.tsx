@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { Folder, XCircle, Plus } from 'react-feather';
+import { Folder, XCircle, Plus, RefreshCcw } from 'react-feather';
 import Modal from '../common/Modal';
 import Button from '../common/Button';
 import Table from '../common/Table';
@@ -13,31 +13,31 @@ interface FileDirectoryProps {
 
 const STARTING_DATA = [
 	{
-		id: 1,
+		id: Math.floor(1000 + Math.random() * 9000),
 		title: 'First title',
 		body: 'A Some text that will probably be in a body.',
 		date: new Date(),
 	},
 	{
-		id: 2,
+		id: Math.floor(1000 + Math.random() * 9000),
 		title: 'Second title',
 		body: 'B Some text that will probably be in a body.',
 		date: new Date(),
 	},
 	{
-		id: 3,
+		id: Math.floor(1000 + Math.random() * 9000),
 		title: 'Third title',
 		body: 'C Some text that will probably be in a body.',
 		date: new Date(),
 	},
 	{
-		id: 4,
+		id: Math.floor(1000 + Math.random() * 9000),
 		title: 'Fourth title',
 		body: 'D Some text that will probably be in a body.',
 		date: new Date(),
 	},
 	{
-		id: 5,
+		id: Math.floor(1000 + Math.random() * 9000),
 		title: 'Fifth title',
 		body: 'E Some text that will probably be in a body.',
 		date: new Date(),
@@ -74,12 +74,21 @@ function FileDirectory({ open, onClose }: FileDirectoryProps) {
 	const remove = (e) => {
 		e.preventDefault();
 
+		const removed = JSON.stringify(files.find((file) => file.id === rowId));
+		localStorage.setItem('Deleted Files', removed);
+
 		const updatedFiles = files.filter((file) => file.id !== rowId);
 		setEditor(false);
 		setFiles(updatedFiles);
 		setRowId(null);
 		setTitle('');
 		setBody('');
+	};
+
+	const restore = () => {
+		const deleted = localStorage.getItem('Deleted Files');
+		console.log(JSON.parse(deleted));
+		//setFiles((files) => [...JSON.parse(deleted), ...files]);
 	};
 
 	const sortData = (column) => {
@@ -221,7 +230,7 @@ function FileDirectory({ open, onClose }: FileDirectoryProps) {
 						</Sidebar>
 					)}
 					<Files editor={editor} hasFiles={files.length > 0}>
-						<AddFileWrapper>
+						<ActionButtons>
 							<Button
 								width={50}
 								text=""
@@ -235,7 +244,15 @@ function FileDirectory({ open, onClose }: FileDirectoryProps) {
 							>
 								<Plus color={theme.color} />
 							</Button>
-						</AddFileWrapper>
+							<Button
+								text=""
+								onClick={() => restore()}
+								backgroundColor={theme.primary}
+								width={50}
+							>
+								<RefreshCcw color={theme.color} />
+							</Button>
+						</ActionButtons>
 						{files.length > 0 ? (
 							<Table
 								startingData={files}
@@ -282,7 +299,10 @@ const Content = styled.div(({ theme }) => ({
 	color: theme.color,
 	display: 'flex',
 	alignItems: 'flex-start',
-	height: 'calc(100% - 64px)',
+	height: '100%',
+	minHeight: 600,
+	maxHeight: 600,
+	overflowY: 'scroll',
 }));
 
 const Sidebar = styled.div({
@@ -324,13 +344,14 @@ const Textarea = styled.textarea({
 	marginBottom: 20,
 });
 
-const AddFileWrapper = styled.div({
+const ActionButtons = styled.div({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'flex-start',
 	width: 'calc(100% - 15px)',
 	marginBottom: 20,
 	marginLeft: 15,
+	gap: 5,
 });
 
 const EmptyState = styled.div({

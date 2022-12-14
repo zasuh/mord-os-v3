@@ -21,7 +21,7 @@ function Gallery({ open, onClose }: GalleryProps) {
 					const { data } = await axios.get(
 						'https://jsonplaceholder.typicode.com/photos'
 					);
-					setPhotos(data.slice(0, 50));
+					setPhotos(data.slice(0, 30));
 				} catch (err) {
 					console.log(err);
 				}
@@ -88,7 +88,10 @@ function Gallery({ open, onClose }: GalleryProps) {
 								<>
 									{initialPhotos.length > 0 ? (
 										initialPhotos.map((photo) => (
-											<div key={photo.id} style={{ width: 150 }}>
+											<div
+												key={photo.id}
+												style={{ width: 150, position: 'relative' }}
+											>
 												<ImageWrapper>
 													<Picture src={photo.thumbnailUrl} alt="" />
 												</ImageWrapper>
@@ -173,6 +176,7 @@ const Images = styled.div({
 	maxHeight: '100%',
 	flex: '0 1 calc(66% + 20px)',
 	flexWrap: 'wrap',
+	paddingTop: 10,
 	margin: '0 15px',
 	overflow: 'auto',
 

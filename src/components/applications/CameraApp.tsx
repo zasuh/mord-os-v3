@@ -59,7 +59,12 @@ function CameraApp({ open, onClose }: CameraAppProps) {
 			localStorage.setItem(
 				'Camera Images',
 				JSON.stringify([
-					{ id, title: `Camera Screenshot ${id}`, thumbnailUrl: data },
+					{
+						id,
+						title: `Camera Screenshot ${id}`,
+						thumbnailUrl: data,
+						webcam: true,
+					},
 				])
 			);
 		} else {
@@ -67,7 +72,12 @@ function CameraApp({ open, onClose }: CameraAppProps) {
 				'Camera Images',
 				JSON.stringify([
 					...JSON.parse(currentImages),
-					{ id, title: `Camera Screenshot ${id}`, thumbnailUrl: data },
+					{
+						id,
+						title: `Camera Screenshot ${id}`,
+						thumbnailUrl: data,
+						webcam: true,
+					},
 				])
 			);
 		}
