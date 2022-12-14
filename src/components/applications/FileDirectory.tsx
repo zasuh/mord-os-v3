@@ -290,16 +290,17 @@ const Sidebar = styled.div({
 	top: 0,
 	height: '100%',
 	width: '33%',
-	borderRight: '1px solid rgba(0, 0, 0, 0.13)',
 	padding: 10,
 });
 
-const Files = styled.div(({ editor, hasFiles }: any) => ({
-	maxHeight: '100%',
-	flex: `0 1 ${editor ? 'calc(66% + 20px)' : '100%'}`,
-	margin: '0 15px',
-	overflow: hasFiles ? 'auto' : 'hidden',
-}));
+const Files = styled.div(
+	({ editor, hasFiles }: { editor: boolean; hasFiles: boolean }) => ({
+		maxHeight: '100%',
+		flex: `0 1 ${editor ? 'calc(66% + 20px)' : '100%'}`,
+		margin: '0 15px',
+		overflow: hasFiles ? 'auto' : 'hidden',
+	})
+);
 
 const CloseButton = styled.div({
 	display: 'flex',

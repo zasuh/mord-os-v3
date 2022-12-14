@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Camera, XCircle } from 'react-feather';
-import Webcam from 'react-webcam';
 import Modal from '../common/Modal';
 import Button from '../common/Button';
 
@@ -13,8 +12,46 @@ interface CameraAppProps {
 function CameraApp({ open, onClose }: CameraAppProps) {
 	const theme = useTheme();
 	const webcamRef = React.useRef(null);
-	const capture = React.useCallback(() => {
-		const imageSrc = webcamRef.current.getScreenshot();
+	const photoRef = React.useRef(null);
+
+	React.useEffect(() => {
+		if (open) {
+			getVideo();
+		}
+	}, [webcamRef, open]);
+
+	const paintToCanvas = () => {
+		const video = webcamRef.current;
+		const photo = photoRef.current;
+		const ctx = photo.getContext('2d');
+
+		const width = 320;
+		const height = 240;
+		photo.width = width;
+		photo.height = height;
+
+		return setInterval(() => {
+			ctx.filter = 'contrast(1.4) sepia(1)';
+			ctx.drawImage(video, 0, 0, width, height);
+		}, 50);
+	};
+
+	const getVideo = () => {
+		navigator.mediaDevices
+			.getUserMedia({ video: { facingMode: 'environment' }, audio: false })
+			.then((stream) => {
+				const video = webcamRef.current;
+				video.srcObject = stream;
+				video.play();
+			})
+			.catch((err) => {
+				console.error('Webcam error:', err);
+			});
+	};
+
+	const takePhoto = () => {
+		const photo = photoRef.current;
+		const data = photo.toDataURL('image/jpeg');
 		const currentImages = localStorage.getItem('Camera Images');
 		const id = Math.floor(1000 + Math.random() * 9000);
 
@@ -22,7 +59,7 @@ function CameraApp({ open, onClose }: CameraAppProps) {
 			localStorage.setItem(
 				'Camera Images',
 				JSON.stringify([
-					{ id, title: `Camera Screenshot ${id}`, thumbnailUrl: imageSrc },
+					{ id, title: `Camera Screenshot ${id}`, thumbnailUrl: data },
 				])
 			);
 		} else {
@@ -30,12 +67,12 @@ function CameraApp({ open, onClose }: CameraAppProps) {
 				'Camera Images',
 				JSON.stringify([
 					...JSON.parse(currentImages),
-					{ id, title: `Camera Screenshot ${id}`, thumbnailUrl: imageSrc },
+					{ id, title: `Camera Screenshot ${id}`, thumbnailUrl: data },
 				])
 			);
 		}
 		alert('Picture taken');
-	}, [webcamRef]);
+	};
 
 	return (
 		<Modal open={open}>
@@ -48,31 +85,29 @@ function CameraApp({ open, onClose }: CameraAppProps) {
 					<div>
 						<XCircle
 							color={theme.color}
-							onClick={onClose}
+							onClick={() => {
+								navigator.mediaDevices
+									.getUserMedia({ video: { facingMode: 'environment' } })
+									.then((stream) => {
+										stream.getTracks().forEach((track) => track.stop());
+										webcamRef.current.srcObject = null;
+										onClose();
+									});
+							}}
 							style={{ cursor: 'pointer' }}
 						/>
 					</div>
 				</Header>
 				<Content>
-					<Webcam
+					<video
 						ref={webcamRef}
-						style={{
-							width: '100%',
-							height: '100%',
-							margin: 10,
-							borderRadius: 8,
-						}}
-						audio={false}
-						screenshotFormat="image/jpeg"
-						videoConstraints={{
-							width: 1280,
-							height: 720,
-							facingMode: 'user',
-						}}
+						onCanPlay={() => paintToCanvas()}
+						style={{ display: 'none' }}
 					/>
+					<Canvas ref={photoRef} />
 					<Button
 						text="Take Photo"
-						onClick={capture}
+						onClick={() => takePhoto()}
 						backgroundColor={theme.primary}
 					/>
 				</Content>
@@ -107,6 +142,12 @@ const Content = styled.div({
 	alignItems: 'center',
 	justifyContent: 'center',
 	height: 'calc(100% - 64px)',
+});
+
+const Canvas = styled.canvas({
+	margin: 10,
+	borderRadius: 8,
+	width: 500,
 });
 
 export default CameraApp;

@@ -158,7 +158,6 @@ const SidebarItem = styled.div({
 });
 
 const SidebarItemTitle = styled.p(({ selected }: { selected: boolean }) => ({
-	fontFamily: 'Roboto, sans-serif',
 	fontSize: 14,
 	fontWeight: selected ? 'bold' : 'initial',
 }));
@@ -192,7 +191,6 @@ const ImageWrapper = styled.div({
 });
 
 const ImageTitle = styled.div({
-	fontFamily: 'Roboto, sans-serif',
 	fontWeight: 'bold',
 	marginTop: 10,
 	width: 150,

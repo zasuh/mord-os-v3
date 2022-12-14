@@ -13,7 +13,7 @@ function Modal({ open, children }: ModalProps) {
 }
 
 const Overlay = styled.div<ModalProps>(({ open }) => ({
-	display: open ? 'flex' : 'none',
+	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
 	position: 'fixed',
@@ -25,6 +25,9 @@ const Overlay = styled.div<ModalProps>(({ open }) => ({
 	width: '100%',
 	height: '100%',
 	backgroundColor: 'rgba(0,0,0,0.4)',
+	visibility: open ? 'visible' : 'hidden',
+	opacity: open ? 1 : 0,
+	transition: 'all 150ms',
 }));
 
 const Wrapper = styled.div(({ theme }) => ({

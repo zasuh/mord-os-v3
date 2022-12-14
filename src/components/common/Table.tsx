@@ -97,7 +97,8 @@ const Row = styled.div(({ tableHeader, tableRow, theme }: RowStyleProps) => ({
 
 	...(tableHeader && {
 		color: 'white',
-		backgroundColor: '#9A8873',
+		backgroundColor: theme.primary,
+		boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
 		fontSize: 14,
 		textTransform: 'uppercase',
 		letterSpacing: '0.03em',

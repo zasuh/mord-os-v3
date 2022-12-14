@@ -61,7 +61,6 @@
 		"feather-icons": "^4.29.0",
 		"react-feather": "^2.0.10",
 		"react-router-dom": "^6.4.4",
-		"react-webcam": "^7.0.1",
 		"typeface-roboto": "^1.1.13",
 		"use-local-storage": "^2.3.6"
 	}

@@ -7,8 +7,8 @@ interface LoginProps {
 	login: (email: string, password: string) => void;
 }
 const Login = ({ login }: LoginProps) => {
-	const [email, setEmail] = React.useState('');
-	const [password, setPassword] = React.useState('');
+	const [email, setEmail] = React.useState('borgoth@mordos.com');
+	const [password, setPassword] = React.useState('12bindthem');
 	const theme = useTheme();
 
 	return (
@@ -42,6 +42,7 @@ const Login = ({ login }: LoginProps) => {
 								name="email"
 								placeholder="Email"
 								onChange={(e) => setEmail(e.target.value)}
+								value={email}
 							/>
 						</div>
 						<div
@@ -57,6 +58,7 @@ const Login = ({ login }: LoginProps) => {
 								name="password"
 								placeholder="Password"
 								onChange={(e) => setPassword(e.target.value)}
+								value={password}
 							/>
 						</div>
 						<Button

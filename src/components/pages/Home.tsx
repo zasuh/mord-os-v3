@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 import { Folder, Rss, Camera, Image, Chrome } from 'react-feather';
+
 import Toolbar from '../common/Toolbar';
 import FileDirectory from '../applications/FileDirectory';
 import RssReader from '../applications/RssReader';
@@ -56,27 +57,18 @@ function Home({ switchTheme }: HomeProps) {
 				</IconsWrapper>
 			</Desktop>
 			<Toolbar modals={{}} switchTheme={switchTheme} />
-			{fileDirectoryModal && (
-				<FileDirectory
-					open={fileDirectoryModal}
-					onClose={() => setFileDirectoryModal(false)}
-				/>
-			)}
-			{rssReaderModal && (
-				<RssReader
-					open={rssReaderModal}
-					onClose={() => setRssReaderModal(false)}
-				/>
-			)}
-			{cameraModal && (
-				<CameraApp open={cameraModal} onClose={() => setCameraModal(false)} />
-			)}
-			{galleryModal && (
-				<Gallery open={galleryModal} onClose={() => setGalleryModal(false)} />
-			)}
-			{browserModal && (
-				<Browser open={browserModal} onClose={() => setBrowserModal(false)} />
-			)}
+
+			<FileDirectory
+				open={fileDirectoryModal}
+				onClose={() => setFileDirectoryModal(false)}
+			/>
+			<RssReader
+				open={rssReaderModal}
+				onClose={() => setRssReaderModal(false)}
+			/>
+			<CameraApp open={cameraModal} onClose={() => setCameraModal(false)} />
+			<Gallery open={galleryModal} onClose={() => setGalleryModal(false)} />
+			<Browser open={browserModal} onClose={() => setBrowserModal(false)} />
 		</>
 	);
 }
@@ -93,13 +85,14 @@ const Desktop = styled.div(({ theme }) => ({
 }));
 
 const IconsWrapper = styled.div({
-	height: '60%',
+	height: 450,
 	display: 'flex',
 	flexDirection: 'column',
+	alignSelf: 'flex-start',
 	alignItems: 'center',
 	justifyContent: 'space-between',
 	padding: 10,
-	gap: '2em',
+	gap: 5,
 });
 
 const Icon = styled.div({
