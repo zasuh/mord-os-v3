@@ -27,6 +27,7 @@ const COLUMN_WIDTHS = {
 	4: '25%',
 };
 function Table({ startingData, onSort, onRowClick }: TableProps) {
+	console.log('TABLE:', startingData);
 	return (
 		<Wrapper>
 			<Row tableHeader>
@@ -72,7 +73,7 @@ function Table({ startingData, onSort, onRowClick }: TableProps) {
 							{row.body}
 						</Column>
 						<Column order={4} data-label="Date">
-							{row.date.toLocaleTimeString()}
+							{new Date(row.date).toLocaleTimeString()}
 						</Column>
 					</Row>
 				</div>

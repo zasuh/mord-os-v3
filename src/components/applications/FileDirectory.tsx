@@ -53,6 +53,13 @@ function FileDirectory({ open, onClose }: FileDirectoryProps) {
 	const [sortingColumn, setSortingColumn] = React.useState(null);
 	const theme = useTheme();
 
+	React.useEffect(() => {
+		if (open && !localStorage.getItem('Deleted Files')) {
+			const a = JSON.stringify([]);
+			localStorage.setItem('Deleted Files', a);
+		}
+	}, [open]);
+
 	const save = (e) => {
 		e.preventDefault();
 
@@ -75,7 +82,14 @@ function FileDirectory({ open, onClose }: FileDirectoryProps) {
 		e.preventDefault();
 
 		const removed = JSON.stringify(files.find((file) => file.id === rowId));
-		localStorage.setItem('Deleted Files', removed);
+		const previousDeleted = JSON.parse(localStorage.getItem('Deleted Files'));
+
+		if (previousDeleted) {
+			const data = JSON.stringify([...previousDeleted, removed]);
+			localStorage.setItem('Deleted Files', data);
+		} else {
+			localStorage.setItem('Deleted Files', JSON.stringify([removed]));
+		}
 
 		const updatedFiles = files.filter((file) => file.id !== rowId);
 		setEditor(false);
@@ -86,9 +100,10 @@ function FileDirectory({ open, onClose }: FileDirectoryProps) {
 	};
 
 	const restore = () => {
-		const deleted = localStorage.getItem('Deleted Files');
-		console.log(JSON.parse(deleted));
-		//setFiles((files) => [...JSON.parse(deleted), ...files]);
+		const deleted = JSON.parse(localStorage.getItem('Deleted Files')).map(
+			(file) => JSON.parse(file)
+		);
+		setFiles((files) => [...deleted, ...files]);
 	};
 
 	const sortData = (column) => {
